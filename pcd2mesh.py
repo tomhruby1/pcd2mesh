@@ -6,15 +6,14 @@ import sys
 import open3d as o3d 
 import numpy as np
 import matplotlib.pyplot as plt
-import copy
 
 #params
 INPUT_PATH = "laser/ext_court.ply"
-OUTPUT_PATH = "export/court_mesh_12"
+OUTPUT_PATH = "export/court_mesh_simp512"
 
 VOX_DOWNSAMPLE = None #float or None, depends on the model
 NORMAL_EST = True #normal estimation 
-POISSON_DEPTH = 12  #poisson reconstruction depth, the higher, the more detail
+POISSON_DEPTH = 11  #poisson reconstruction depth, the higher, the more detail
 POISSON_DENSE_THRESH = 0.2
 FILTERING = None #or average, laplace, taubin
 VERTEX_CLUSTERING = 256 #int or None
@@ -138,7 +137,7 @@ if __name__=="__main__":
                                                             mesh_show_back_face=True)
     else: mesh_smp = mesh
 
-    o3d.visualization.draw_geometries([mesh_smp], mesh_show_wireframe=False, mesh_show_back_face=False)
+    o3d.visualization.draw_geometries([mesh_smp], mesh_show_wireframe=False, mesh_show_back_face=True)
     #export
     print("\n--- EXPORTING ---")
     o3d.io.write_triangle_mesh(OUTPUT_PATH+".obj",
